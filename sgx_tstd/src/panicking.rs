@@ -720,6 +720,7 @@ pub const fn begin_panic<M: Any + Send>(msg: M) -> ! {
         crate::sys::backtrace::__rust_end_short_backtrace(move || {
             rust_panic_with_hook(
                 &mut Payload::new(msg),
+                None,
                 loc,
                 /* can_unwind */ true,
                 /* force_no_backtrace */ false,
