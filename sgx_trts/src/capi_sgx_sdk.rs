@@ -15,7 +15,6 @@
 // specific language governing permissions and limitations
 // under the License..
 
-<<<<<<<< HEAD:sgx_trts/src/capi_sgx_sdk.rs
 use crate::enclave::MmLayout;
 
 #[inline]
@@ -29,9 +28,3 @@ pub extern "C" fn sgx_get_image_base() -> *const u8 {
 pub extern "C" fn sgx_get_heap_base() -> *const u8 {
     MmLayout::heap_base() as *const u8
 }
-========
-#[cfg(feature = "unit_test")]
-mod tests;
-
-pub use crate::sys_common::remutex::{ReentrantMutex, ReentrantMutexGuard};
->>>>>>>> 92e3703d5ad134f0a5e9870700c640044ca70468:sgx_tstd/src/sync/remutex.rs

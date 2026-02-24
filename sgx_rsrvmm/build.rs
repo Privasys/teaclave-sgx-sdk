@@ -15,7 +15,6 @@
 // specific language governing permissions and limitations
 // under the License..
 
-<<<<<<<< HEAD:sgx_rsrvmm/build.rs
 use std::env;
 
 fn main() -> Result<(), &'static str> {
@@ -26,11 +25,3 @@ fn main() -> Result<(), &'static str> {
     }
     Ok(())
 }
-========
-//! Linux and Android-specific networking functionality.
-
-pub(crate) mod addr;
-pub(crate) mod tcp;
-#[cfg(feature = "unit_test")]
-mod tests;
->>>>>>>> 92e3703d5ad134f0a5e9870700c640044ca70468:sgx_tstd/src/os/net/linux_ext/mod.rs
