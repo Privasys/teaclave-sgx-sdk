@@ -65,7 +65,7 @@ global_asm!(include_str!("pic.S"), options(att_syntax));
 const SYNTHETIC_STATE_SIZE: usize = 512 + 64;
 #[link_section = ".niprod"]
 #[no_mangle]
-pub static mut SYNTHETIC_STATE: Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> = Align64([
+pub static SYNTHETIC_STATE: Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> = Align64([
     0x037F, 0, 0, 0, 0, 0, 0x1FBF, 0xFFFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -75,7 +75,7 @@ pub static mut SYNTHETIC_STATE: Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> = Align
 
 #[inline(always)]
 #[no_mangle]
-pub unsafe extern "C" fn get_synthetic_state_ptr(
-) -> &'static mut Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> {
-    &mut SYNTHETIC_STATE
+pub extern "C" fn get_synthetic_state_ptr(
+) -> *const Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> {
+    &SYNTHETIC_STATE as *const _
 }
