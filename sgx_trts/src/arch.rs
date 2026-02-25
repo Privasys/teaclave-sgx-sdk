@@ -54,7 +54,7 @@ macro_rules! trim_to_page {
 }
 
 #[cfg(not(feature = "use_sgx_sdk"))]
-#[link_section = ".niprod"]
+#[link_section = ".nipd"]
 #[no_mangle]
 pub static mut g_global_data: GlobalData = GlobalData {
     version: VERSION_UINT,
