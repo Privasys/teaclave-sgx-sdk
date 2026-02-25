@@ -453,7 +453,7 @@ pub(crate) fn default_read_to_end<R: Read + ?Sized>(
         }
 
         // store how much was initialized but not filled
-        initialized = cursor.init_ref().len();
+        initialized = cursor.init_mut().len();
 
         // SAFETY: BorrowedBuf's invariants mean this much memory is initialized.
         unsafe {
@@ -2621,7 +2621,7 @@ impl<T: Read> Read for Take<T> {
             // if we just use an as cast to convert, limit may wrap around on a 32 bit target
             let limit = cmp::min(self.limit, usize::MAX as u64) as usize;
 
-            let extra_init = cmp::min(limit as usize, buf.init_ref().len());
+            let extra_init = cmp::min(limit as usize, buf.init_mut().len());
 
             // SAFETY: no uninit data is written to ibuf
             let ibuf = unsafe { &mut buf.as_mut()[..limit] };
@@ -2636,7 +2636,7 @@ impl<T: Read> Read for Take<T> {
             let mut cursor = sliced_buf.unfilled();
             self.inner.read_buf(cursor.reborrow())?;
 
-            let new_init = cursor.init_ref().len();
+            let new_init = cursor.init_mut().len();
             let filled = sliced_buf.len();
 
             // cursor / sliced_buf / ibuf must drop here

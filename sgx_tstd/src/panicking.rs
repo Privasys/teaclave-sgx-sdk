@@ -71,14 +71,14 @@ extern "Rust" {
 /// This function is called by the panic runtime if FFI code catches a Rust
 /// panic but doesn't rethrow it. We don't support this case since it messes
 /// with our panic count.
-#[rustc_std_internal_symbol]
+#[no_mangle]
 extern "C" fn __rust_drop_panic() -> ! {
     rtabort!("Rust panics must be rethrown");
 }
 
 /// This function is called by the panic runtime if it catches an exception
 /// object which does not correspond to a Rust panic.
-#[rustc_std_internal_symbol]
+#[no_mangle]
 extern "C" fn __rust_foreign_exception() -> ! {
     rtabort!("Rust cannot catch foreign exceptions");
 }
@@ -566,7 +566,7 @@ pub fn begin_panic_handler(info: &PanicInfo<'_>) -> ! {
             // Lazily, the first time this gets called, run the actual string formatting.
             self.string.get_or_insert_with(|| {
                 let mut s = String::new();
-                let mut fmt = fmt::Formatter::new(&mut s);
+                let mut fmt = fmt::Formatter::new(&mut s, fmt::FormattingOptions::new());
                 let _err = fmt::Display::fmt(&inner, &mut fmt);
                 s
             })
@@ -848,7 +848,7 @@ pub fn rust_panic_without_hook(payload: Box<dyn Any + Send>) -> ! {
 /// An unmangled function (through `rustc_std_internal_symbol`) on which to slap
 /// yer breakpoints.
 #[inline(never)]
-#[rustc_std_internal_symbol]
+#[no_mangle]
 fn rust_panic(msg: &mut dyn PanicPayload) -> ! {
     let code = unsafe { __rust_start_panic(msg) };
     rtabort!("failed to initiate panic, error {code}")

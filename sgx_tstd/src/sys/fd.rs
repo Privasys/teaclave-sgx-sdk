@@ -63,7 +63,7 @@ impl FileDesc {
 
     pub fn read_buf(&self, mut cursor: BorrowedCursor<'_>) -> io::Result<()> {
         let ret = cvt_ocall(unsafe {
-            libc::read(self.as_raw_fd(), MaybeUninit::slice_assume_init_mut(cursor.as_mut()))
+            libc::read(self.as_raw_fd(), cursor.as_mut().assume_init_mut())
         })?;
 
         cursor.advance(ret);

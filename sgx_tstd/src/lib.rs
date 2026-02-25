@@ -63,7 +63,6 @@
 #![feature(allocator_internals)]
 #![feature(allow_internal_unsafe)]
 #![feature(allow_internal_unstable)]
-#![feature(concat_idents)]
 #![feature(const_trait_impl)]
 #![feature(decl_macro)]
 #![feature(dropck_eyepatch)]
@@ -76,6 +75,8 @@
 #![feature(negative_impls)]
 #![feature(never_type)]
 #![feature(prelude_import)]
+#![feature(formatting_options)]
+#![feature(formatting_options)]
 #![feature(rustc_attrs)]
 #![feature(thread_local)]
 #![feature(try_blocks)]
@@ -99,7 +100,6 @@
 #![feature(hashmap_internals)]
 #![feature(ip)]
 #![feature(maybe_uninit_slice)]
-#![feature(maybe_uninit_uninit_array)]
 #![feature(maybe_uninit_write_slice)]
 #![feature(panic_can_unwind)]
 #![feature(panic_internals)]
@@ -146,25 +146,17 @@
 
 #![default_lib_allocator]
 
-// Explicitly import the prelude. The compiler uses this same unstable attribute
-// to import the prelude implicitly when building crates that depend on std.
-#[prelude_import]
-#[allow(unused)]
-use prelude::rust_2021::*;
-
-extern crate hashbrown;
-
-#[allow(unused_imports)] // macros from `alloc` are not used on all platforms
-#[macro_use]
-extern crate alloc as alloc_crate;
-
-// We always need an unwinder currently for backtraces
-extern crate sgx_unwind;
 #[cfg(feature = "backtrace")]
 extern crate sgx_backtrace_sys;
 #[cfg(feature = "backtrace")]
 extern crate sgx_demangle;
 extern crate sgx_alloc;
+
+#[global_allocator]
+static GLOBAL: sgx_alloc::System = sgx_alloc::System;
+
+#[global_allocator]
+static GLOBAL: sgx_alloc::System = sgx_alloc::System;
 
 #[macro_use]
 extern crate sgx_types;
@@ -188,6 +180,14 @@ pub mod rt;
 
 // The Rust prelude
 pub mod prelude;
+
+#[prelude_import]
+#[allow(unused)]
+use prelude::rust_2021::*;
+
+#[prelude_import]
+#[allow(unused)]
+use prelude::rust_2021::*;
 
 // Public module declarations and re-exports
 pub use alloc_crate::borrow;
@@ -331,7 +331,7 @@ pub use core::{
 // Re-export built-in macros defined through core.
 #[allow(deprecated)]
 pub use core::{
-    assert, assert_matches, cfg, column, compile_error, concat, concat_idents, const_format_args,
+    assert, assert_matches, cfg, column, compile_error, concat, const_format_args,
     env, file, format_args, format_args_nl, include, include_bytes, include_str, line, log_syntax,
     module_path, option_env, stringify, trace_macros,
 };

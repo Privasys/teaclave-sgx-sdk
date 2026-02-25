@@ -191,7 +191,7 @@ impl Socket {
         let ret = cvt_ocall(unsafe {
             libc::recv(
                 self.as_raw_fd(),
-                MaybeUninit::slice_assume_init_mut(buf.as_mut()),
+                buf.as_mut().assume_init_mut(),
                 flags,
             )
         })?;

@@ -21,7 +21,7 @@ use core::any::Any;
 use core::panic::PanicPayload;
 
 /// # Safety
-#[rustc_std_internal_symbol]
+#[no_mangle]
 #[allow(improper_ctypes_definitions)]
 pub unsafe extern "C" fn __rust_panic_cleanup(_: *mut u8) -> *mut (dyn Any + Send + 'static) {
     unreachable!()
@@ -29,7 +29,7 @@ pub unsafe extern "C" fn __rust_panic_cleanup(_: *mut u8) -> *mut (dyn Any + Sen
 
 /// # Safety
 // "Leak" the payload and shim to the relevant abort on the platform in question.
-#[rustc_std_internal_symbol]
+#[no_mangle]
 pub unsafe fn __rust_start_panic(_payload: &mut dyn PanicPayload) -> u32 {
     sgx_trts::error::abort();
 }
