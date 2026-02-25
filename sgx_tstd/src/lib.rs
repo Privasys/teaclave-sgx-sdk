@@ -76,7 +76,6 @@
 #![feature(never_type)]
 #![feature(prelude_import)]
 #![feature(formatting_options)]
-#![feature(formatting_options)]
 #![feature(rustc_attrs)]
 #![feature(thread_local)]
 #![feature(try_blocks)]
@@ -141,6 +140,7 @@
 #![feature(log_syntax)]
 #![feature(test)]
 #![feature(trace_macros)]
+#![feature(core_float_math)]
 // tidy-alphabetical-end
 //
 
@@ -155,8 +155,14 @@ extern crate sgx_alloc;
 #[global_allocator]
 static GLOBAL: sgx_alloc::System = sgx_alloc::System;
 
-#[global_allocator]
-static GLOBAL: sgx_alloc::System = sgx_alloc::System;
+extern crate hashbrown;
+
+#[allow(unused_imports)] // macros from `alloc` are not used on all platforms
+#[macro_use]
+extern crate alloc as alloc_crate;
+
+// We always need an unwinder currently for backtraces
+extern crate sgx_unwind;
 
 #[macro_use]
 extern crate sgx_types;
@@ -180,10 +186,6 @@ pub mod rt;
 
 // The Rust prelude
 pub mod prelude;
-
-#[prelude_import]
-#[allow(unused)]
-use prelude::rust_2021::*;
 
 #[prelude_import]
 #[allow(unused)]

@@ -41,6 +41,96 @@ pub use core::f64::{
 };
 
 impl f64 {
+    /// Returns the largest integer less than or equal to `self`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn floor(self) -> f64 {
+        core::f64::math::floor(self)
+    }
+
+    /// Returns the smallest integer greater than or equal to `self`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn ceil(self) -> f64 {
+        core::f64::math::ceil(self)
+    }
+
+    /// Returns the nearest integer to `self`, rounding half-way cases away from `0.0`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn round(self) -> f64 {
+        core::f64::math::round(self)
+    }
+
+    /// Returns the nearest integer, rounding ties to even.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn round_ties_even(self) -> f64 {
+        core::f64::math::round_ties_even(self)
+    }
+
+    /// Returns the integer part of `self`. Truncates towards zero.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn trunc(self) -> f64 {
+        core::f64::math::trunc(self)
+    }
+
+    /// Returns the fractional part of `self`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub const fn fract(self) -> f64 {
+        core::f64::math::fract(self)
+    }
+
+    /// Fused multiply-add. Computes `(self * a) + b` with only one rounding error.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub fn mul_add(self, a: f64, b: f64) -> f64 {
+        core::f64::math::mul_add(self, a, b)
+    }
+
+    /// Calculates Euclidean division.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub fn div_euclid(self, rhs: f64) -> f64 {
+        core::f64::math::div_euclid(self, rhs)
+    }
+
+    /// Calculates the least nonnegative remainder of `self (mod rhs)`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub fn rem_euclid(self, rhs: f64) -> f64 {
+        core::f64::math::rem_euclid(self, rhs)
+    }
+
+    /// Raises a number to an integer power.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub fn powi(self, n: i32) -> f64 {
+        core::f64::math::powi(self, n)
+    }
+
+    /// Returns the square root of a number.
+    ///
+    /// Returns NaN if `self` is a negative number other than `-0.0`.
+    #[rustc_allow_incoherent_impl]
+    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[inline]
+    pub fn sqrt(self) -> f64 {
+        unsafe { intrinsics::sqrtf64(self) }
+    }
+
     /// Raises a number to a floating point power.
     ///
     /// # Examples
