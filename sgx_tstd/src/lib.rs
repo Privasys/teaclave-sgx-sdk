@@ -68,7 +68,6 @@
 #![feature(dropck_eyepatch)]
 #![feature(if_let_guard)]
 #![feature(lang_items)]
-#![feature(let_chains)]
 #![feature(min_specialization)]
 #![feature(must_not_suspend)]
 #![feature(needs_panic_runtime)]
@@ -99,10 +98,8 @@
 #![feature(hashmap_internals)]
 #![feature(ip)]
 #![feature(maybe_uninit_slice)]
-#![feature(maybe_uninit_write_slice)]
 #![feature(panic_can_unwind)]
 #![feature(panic_internals)]
-#![feature(prelude_2024)]
 #![feature(ptr_as_uninit)]
 #![feature(slice_internals)]
 #![feature(std_internals)]
@@ -117,7 +114,6 @@
 #![feature(map_try_insert)]
 #![feature(slice_concat_trait)]
 #![feature(try_reserve_kind)]
-#![feature(vec_into_raw_parts)]
 // tidy-alphabetical-end
 //
 // Library features (unwind):

@@ -17,7 +17,6 @@
 
 use crate::cmp;
 use crate::io::{self, BorrowedBuf, BorrowedCursor, IoSlice, IoSliceMut};
-use crate::mem::MaybeUninit;
 use crate::net::{Shutdown, SocketAddr};
 use crate::os::unix::io::{AsFd, AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, RawFd};
 use crate::sys::fd::FileDesc;

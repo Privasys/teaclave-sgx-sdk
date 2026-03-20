@@ -43,7 +43,6 @@ pub use core::f64::{
 impl f64 {
     /// Returns the largest integer less than or equal to `self`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn floor(self) -> f64 {
         core::f64::math::floor(self)
@@ -51,7 +50,6 @@ impl f64 {
 
     /// Returns the smallest integer greater than or equal to `self`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn ceil(self) -> f64 {
         core::f64::math::ceil(self)
@@ -59,7 +57,6 @@ impl f64 {
 
     /// Returns the nearest integer to `self`, rounding half-way cases away from `0.0`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn round(self) -> f64 {
         core::f64::math::round(self)
@@ -67,7 +64,6 @@ impl f64 {
 
     /// Returns the nearest integer, rounding ties to even.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn round_ties_even(self) -> f64 {
         core::f64::math::round_ties_even(self)
@@ -75,7 +71,6 @@ impl f64 {
 
     /// Returns the integer part of `self`. Truncates towards zero.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn trunc(self) -> f64 {
         core::f64::math::trunc(self)
@@ -83,7 +78,6 @@ impl f64 {
 
     /// Returns the fractional part of `self`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub const fn fract(self) -> f64 {
         core::f64::math::fract(self)
@@ -91,7 +85,6 @@ impl f64 {
 
     /// Fused multiply-add. Computes `(self * a) + b` with only one rounding error.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn mul_add(self, a: f64, b: f64) -> f64 {
         core::f64::math::mul_add(self, a, b)
@@ -99,7 +92,6 @@ impl f64 {
 
     /// Calculates Euclidean division.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn div_euclid(self, rhs: f64) -> f64 {
         core::f64::math::div_euclid(self, rhs)
@@ -107,7 +99,6 @@ impl f64 {
 
     /// Calculates the least nonnegative remainder of `self (mod rhs)`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn rem_euclid(self, rhs: f64) -> f64 {
         core::f64::math::rem_euclid(self, rhs)
@@ -115,7 +106,6 @@ impl f64 {
 
     /// Raises a number to an integer power.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn powi(self, n: i32) -> f64 {
         core::f64::math::powi(self, n)
@@ -125,10 +115,9 @@ impl f64 {
     ///
     /// Returns NaN if `self` is a negative number other than `-0.0`.
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn sqrt(self) -> f64 {
-        unsafe { intrinsics::sqrtf64(self) }
+        intrinsics::sqrtf64(self)
     }
 
     /// Raises a number to a floating point power.
@@ -142,10 +131,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn powf(self, n: f64) -> f64 {
-        unsafe { intrinsics::powf64(self, n) }
+        intrinsics::powf64(self, n)
     }
     /// Returns `e^(self)`, (the exponential function).
     ///
@@ -162,10 +150,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn exp(self) -> f64 {
-        unsafe { intrinsics::expf64(self) }
+        intrinsics::expf64(self)
     }
 
     /// Returns `2^(self)`.
@@ -181,10 +168,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn exp2(self) -> f64 {
-        unsafe { intrinsics::exp2f64(self) }
+        intrinsics::exp2f64(self)
     }
 
     /// Returns the natural logarithm of the number.
@@ -202,10 +188,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn ln(self) -> f64 {
-        self.log_wrapper(|n| unsafe { intrinsics::logf64(n) })
+        self.log_wrapper(|n| intrinsics::logf64(n))
     }
 
     /// Returns the logarithm of the number with respect to an arbitrary base.
@@ -225,7 +210,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn log(self, base: f64) -> f64 {
         self.ln() / base.ln()
@@ -244,10 +228,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn log2(self) -> f64 {
-        self.log_wrapper(|n| unsafe { intrinsics::log2f64(n) })
+        self.log_wrapper(|n| intrinsics::log2f64(n))
     }
 
     /// Returns the base 10 logarithm of the number.
@@ -263,10 +246,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn log10(self) -> f64 {
-        self.log_wrapper(|n| unsafe { intrinsics::log10f64(n) })
+        self.log_wrapper(|n| intrinsics::log10f64(n))
     }
 
     /// The positive difference of two numbers.
@@ -287,7 +269,6 @@ impl f64 {
     /// assert!(abs_difference_y < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     #[deprecated(
         since = "1.10.0",
@@ -316,7 +297,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn cbrt(self) -> f64 {
         unsafe { cmath::cbrt(self) }
@@ -339,7 +319,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn hypot(self, other: f64) -> f64 {
         unsafe { cmath::hypot(self, other) }
@@ -357,10 +336,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn sin(self) -> f64 {
-        unsafe { intrinsics::sinf64(self) }
+        intrinsics::sinf64(self)
     }
 
     /// Computes the cosine of a number (in radians).
@@ -375,10 +353,9 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn cos(self) -> f64 {
-        unsafe { intrinsics::cosf64(self) }
+        intrinsics::cosf64(self)
     }
 
     /// Computes the tangent of a number (in radians).
@@ -392,7 +369,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-14);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn tan(self) -> f64 {
         unsafe { cmath::tan(self) }
@@ -413,7 +389,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn asin(self) -> f64 {
         unsafe { cmath::asin(self) }
@@ -434,7 +409,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn acos(self) -> f64 {
         unsafe { cmath::acos(self) }
@@ -454,7 +428,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn atan(self) -> f64 {
         unsafe { cmath::atan(self) }
@@ -487,7 +460,6 @@ impl f64 {
     /// assert!(abs_difference_2 < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn atan2(self, other: f64) -> f64 {
         unsafe { cmath::atan2(self, other) }
@@ -529,7 +501,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-20);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn exp_m1(self) -> f64 {
         unsafe { cmath::expm1(self) }
@@ -550,7 +521,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-20);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn ln_1p(self) -> f64 {
         unsafe { cmath::log1p(self) }
@@ -572,7 +542,6 @@ impl f64 {
     /// assert!(abs_difference < 1e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn sinh(self) -> f64 {
         unsafe { cmath::sinh(self) }
@@ -594,7 +563,6 @@ impl f64 {
     /// assert!(abs_difference < 1.0e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn cosh(self) -> f64 {
         unsafe { cmath::cosh(self) }
@@ -616,7 +584,6 @@ impl f64 {
     /// assert!(abs_difference < 1.0e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn tanh(self) -> f64 {
         unsafe { cmath::tanh(self) }
@@ -635,7 +602,6 @@ impl f64 {
     /// assert!(abs_difference < 1.0e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn asinh(self) -> f64 {
         let ax = self.abs();
@@ -656,7 +622,6 @@ impl f64 {
     /// assert!(abs_difference < 1.0e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn acosh(self) -> f64 {
         if self < 1.0 {
@@ -679,7 +644,6 @@ impl f64 {
     /// assert!(abs_difference < 1.0e-10);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn atanh(self) -> f64 {
         0.5 * ((2.0 * self) / (1.0 - self)).ln_1p()
@@ -698,7 +662,6 @@ impl f64 {
     /// assert!(abs_difference <= f64::EPSILON);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn gamma(self) -> f64 {
         unsafe { cmath::tgamma(self) }
@@ -719,7 +682,6 @@ impl f64 {
     /// assert!(abs_difference <= f64::EPSILON);
     /// ```
     #[rustc_allow_incoherent_impl]
-    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     pub fn ln_gamma(self) -> (f64, i32) {
         let mut signgamp: i32 = 0;

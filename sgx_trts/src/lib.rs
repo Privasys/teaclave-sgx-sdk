@@ -23,7 +23,6 @@
 #![feature(allocator_api)]
 #![feature(const_trait_impl)]
 #![feature(core_intrinsics)]
-#![feature(extract_if)]
 #![feature(min_specialization)]
 #![feature(negative_impls)]
 #![feature(never_type)]

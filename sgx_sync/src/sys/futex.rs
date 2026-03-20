@@ -24,7 +24,6 @@ use alloc::collections::VecDeque;
 use alloc::sync::Arc;
 use alloc::vec::Vec;
 use core::hash::{Hash, Hasher, SipHasher13};
-use core::intrinsics;
 use core::sync::atomic::{AtomicBool, Ordering};
 use core::time::Duration;
 use sgx_trts::sync::SpinMutex;

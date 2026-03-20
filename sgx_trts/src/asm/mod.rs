@@ -73,7 +73,6 @@ pub static SYNTHETIC_STATE: Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> = Align64([
     0, 0, 0, 0, 0, 2, 0, 2, 0x80000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]);
 
-#[inline(always)]
 #[no_mangle]
 pub extern "C" fn get_synthetic_state_ptr(
 ) -> *const Align64<[u32; SYNTHETIC_STATE_SIZE / 4]> {

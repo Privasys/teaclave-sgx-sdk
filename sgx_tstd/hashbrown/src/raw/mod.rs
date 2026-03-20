@@ -4348,11 +4348,13 @@ impl<T, A: Allocator> FusedIterator for RawDrain<'_, T, A> {}
 ///   created will be yielded by that iterator.
 /// - The order in which the iterator yields buckets is unspecified and may
 ///   change in the future.
+#[allow(dead_code)]
 pub struct RawIterHash<T> {
     inner: RawIterHashInner,
     _marker: PhantomData<T>,
 }
 
+#[allow(dead_code)]
 struct RawIterHashInner {
     // See `RawTableInner`'s corresponding fields for details.
     // We can't store a `*const RawTableInner` as it would get
