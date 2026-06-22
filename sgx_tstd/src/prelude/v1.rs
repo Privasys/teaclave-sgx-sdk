@@ -45,9 +45,11 @@ pub use crate::result::Result::{self, Err, Ok};
 #[allow(deprecated)]
 #[doc(no_inline)]
 pub use core::prelude::v1::{
-    assert, cfg, column, compile_error, concat, env, file, format_args,
-    include, include_bytes, include_str, line, log_syntax, module_path, option_env,
-    stringify, trace_macros, Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd,
+    assert, assert_eq, assert_ne, cfg, column, compile_error, concat, debug_assert,
+    debug_assert_eq, debug_assert_ne, env, file, format_args, include, include_bytes,
+    include_str, line, log_syntax, matches, module_path, option_env, stringify, todo,
+    r#try, trace_macros, unimplemented, unreachable, write, writeln,
+    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd,
 };
 
 #[doc(no_inline)]
