@@ -81,3 +81,22 @@ pub use crate::boxed::Box;
 pub use crate::string::{String, ToString};
 #[doc(no_inline)]
 pub use crate::vec::Vec;
+
+// Std-defined macros that belong in the prelude (matching std::prelude::v1).
+// Without these, downstream crates built with the `std` feature cannot resolve
+// `panic!` (e.g. via `debug_assert!`), `vec!`, `format!`, etc. unqualified.
+#[doc(no_inline)]
+pub use crate::{dbg, eprint, eprintln, format, print, println, thread_local};
+
+// `vec` and `panic` would be ambiguous with the modules of the same name, so
+// shadow those modules with private empty modules and glob-export only the
+// macros (this mirrors std's own prelude mechanism).
+mod ambiguous_macros_only {
+    #[allow(hidden_glob_reexports)]
+    mod vec {}
+    #[allow(hidden_glob_reexports)]
+    mod panic {}
+    pub use crate::*;
+}
+#[doc(no_inline)]
+pub use self::ambiguous_macros_only::{panic, vec};
