@@ -20,7 +20,6 @@
 #![deny(unused_features)]
 #![allow(internal_features)]
 #![feature(const_trait_impl)]
-#![feature(core_intrinsics)]
 #![feature(dropck_eyepatch)]
 #![feature(hashmap_internals)]
 #![feature(linked_list_remove)]

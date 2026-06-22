@@ -66,7 +66,6 @@
 #![feature(const_trait_impl)]
 #![feature(decl_macro)]
 #![feature(dropck_eyepatch)]
-#![feature(if_let_guard)]
 #![feature(lang_items)]
 #![feature(min_specialization)]
 #![feature(must_not_suspend)]
@@ -86,6 +85,9 @@
 #![feature(char_internals)]
 #![feature(core_intrinsics)]
 #![feature(core_io_borrowed_buf)]
+#![feature(borrowed_buf_init)]
+#![feature(core_io)]
+#![feature(core_io_internals)]
 #![feature(duration_constants)]
 #![feature(error_generic_member_access)]
 #![feature(error_iter)]
@@ -97,7 +99,7 @@
 #![feature(hasher_prefixfree_extras)]
 #![feature(hashmap_internals)]
 #![feature(ip)]
-#![feature(maybe_uninit_slice)]
+#![feature(maybe_uninit_fill)]
 #![feature(panic_can_unwind)]
 #![feature(panic_internals)]
 #![feature(ptr_as_uninit)]
@@ -123,7 +125,6 @@
 //
 // Only for re-exporting:
 // tidy-alphabetical-start
-#![feature(assert_matches)]
 #![feature(async_iterator)]
 #![feature(c_variadic)]
 #![feature(cfg_accessible)]

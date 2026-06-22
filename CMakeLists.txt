@@ -49,6 +49,7 @@ if(BUILD_SYSROOT)
         COMMENT "Building SGX sysroot (${CARGO_OUT_DIR})..."
         COMMAND cargo build ${CARGO_PROFILE_FLAG}
             -Zbuild-std=core,alloc
+            -Zjson-target-spec
             --target ${TARGET_JSON}
             --features "${SGX_SYSROOT_FEATURES_CSV}"
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${SGX_SYSROOT_OUTPUT}

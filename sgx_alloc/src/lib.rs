@@ -28,7 +28,6 @@
 #![allow(non_camel_case_types)]
 #![allow(internal_features)]
 #![feature(allocator_api)]
-#![feature(alloc_layout_extra)]
 #![feature(core_intrinsics)]
 #![feature(dropck_eyepatch)]
 #![feature(ptr_internals)]

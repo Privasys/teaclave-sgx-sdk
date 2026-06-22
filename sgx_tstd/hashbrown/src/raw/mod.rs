@@ -933,13 +933,6 @@ impl<T, A: Allocator> RawTable<T, A> {
         unsafe { NonNull::new_unchecked(self.table.ctrl.as_ptr().cast()) }
     }
 
-    /// Returns pointer to start of data table.
-    #[inline]
-    #[cfg(any(feature = "raw", feature = "nightly"))]
-    pub unsafe fn data_start(&self) -> NonNull<T> {
-        NonNull::new_unchecked(self.data_end().as_ptr().wrapping_sub(self.buckets()))
-    }
-
     /// Return the information about memory allocated by the table.
     ///
     /// `RawTable` allocates single memory block to store both data and metadata.
@@ -3531,33 +3524,17 @@ impl<T: Clone, A: Allocator + Clone> Clone for RawTable<T, A> {
     }
 }
 
-/// Specialization of `clone_from` for `Copy` types
+// NOTE (Privasys fork): newer nightly `min_specialization` forbids specializing
+// on `Copy`, so the bulk-memcpy specialization for `Copy` element types was
+// removed. All clones go through the generic per-element `clone_from_impl` path;
+// correctness is identical and table-clone is not an enclave hot path.
 trait RawTableClone {
     unsafe fn clone_from_spec(&mut self, source: &Self);
 }
 impl<T: Clone, A: Allocator + Clone> RawTableClone for RawTable<T, A> {
-    default_fn! {
-        #[cfg_attr(feature = "inline-more", inline)]
-        unsafe fn clone_from_spec(&mut self, source: &Self) {
-            self.clone_from_impl(source);
-        }
-    }
-}
-#[cfg(feature = "nightly")]
-impl<T: Copy, A: Allocator + Clone> RawTableClone for RawTable<T, A> {
     #[cfg_attr(feature = "inline-more", inline)]
     unsafe fn clone_from_spec(&mut self, source: &Self) {
-        source
-            .table
-            .ctrl(0)
-            .copy_to_nonoverlapping(self.table.ctrl(0), self.table.num_ctrl_bytes());
-        source
-            .data_start()
-            .as_ptr()
-            .copy_to_nonoverlapping(self.data_start().as_ptr(), self.table.buckets());
-
-        self.table.items = source.table.items;
-        self.table.growth_left = source.table.growth_left;
+        self.clone_from_impl(source);
     }
 }
 

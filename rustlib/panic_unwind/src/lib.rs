@@ -14,8 +14,6 @@
 #![no_std]
 #![unstable(feature = "panic_unwind", issue = "32837")]
 #![cfg_attr(target_vendor = "teaclave", feature(rustc_private))]
-#![feature(core_intrinsics)]
-#![feature(lang_items)]
 #![feature(panic_unwind)]
 #![feature(staged_api)]
 #![feature(std_internals)]
